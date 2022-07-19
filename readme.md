@@ -11,6 +11,6 @@ GU3SS runs on TRON blockchain so in order to play you need to install [TronLink 
 
 Developed using NodeJS and PostgreSQL on the server, plain HTML, JS, CSS on the client, Solidity, TronWeb and TronLink for smart contract interaction
 
-#[PLAY NOW](https://gu3ss.com)
+#PLAY NOW on [GU3SS.com](https://gu3ss.com)
 
 @2022 GU3SS - All rights reserved by Kuyawa
