@@ -1,7 +1,7 @@
 # GU3SS
 ## Bet on all sports
 
-[GU3SS](https://gu3ss.com) is a decentralized betting platform with no restrictions, no KYC and no registration required, just pick and play!
+[GU3SS](https://gu3ss.com) is a decentralized betting platform with no restrictions, no KYC and no registration required, just pick and play, any event, any sport, anytime and anywhere!
 
 ![GU3SS](media/main.jpg)
 
