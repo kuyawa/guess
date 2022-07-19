@@ -1,0 +1,345 @@
+<%
+let now = new Date();
+function matchTie(league) {
+	return ['CHNCSL', 'ENGPRM', 'ESPLIG', 'FRALIG', 'GERBUN', 'ITASER', 'USAMLBx', 'USAMLS', 'UFC', 'WCP'].indexOf(league)>=0;
+}
+function getScore(s1,s2) {
+	return s1+'-'+s2;
+}
+function getLeague(league) {
+	let name = {
+		'USAMLB':'BASEBALL',
+		'USAMLS':'SOCCER',
+		'USANBA':'BASKETBALL',
+		'USANFL':'FOOTBALL',
+		'USANHL':'HOCKEY',
+		'ESPLIG':'LA LIGA',
+		'ENGPRM':'PREMIER',
+		'FRALIG':'LIGUE 1',
+		'ITASRA':'SERIE A',
+		'GERBUN':'BUNDESLIGA',
+		'CHNCSL':'SUPER LEAGUE',
+		'TENATP':'ATP TENNIS',
+		'TENWTA':'WTA TENNIS',
+		'WRDCUP':'WORLD CUP',
+	}[league]
+	return name;
+}
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+function getTime(date) {
+	let hh = date.getHours();
+	let mm = date.getMinutes();
+	let tt = hh.toString().padStart(2,'0')+':'+mm.toString().padStart(2,'0');
+	return tt;
+}
+function getMonthName(date) {
+	return date.toLocaleDateString([],{month: 'long'});
+	//return (new Date(time)).toLocaleDateString([],{month: 'long'});
+}
+function getDayName(date) {
+	return date.toLocaleDateString([],{weekday: 'short'}).toUpperCase();
+}
+function getDayNumber(date) {
+	return date.getDate();
+}
+function statusClass(status) {
+	let txt=['none','open','live','final','ppd'];
+	return 'status-'+txt[status];
+}
+function statusText(status) {
+	let txt=['Upcoming','Open','Live','Final','PPD'];
+	return txt[status];
+}
+function getTicketStatus(estatus, winner, tstatus) {
+	let txt = '';
+	switch(estatus){
+		case 0: txt = ''; break;
+		case 1: txt = ''; break;
+		case 2: txt = ''; break;
+		case 3: txt = winner?(tstatus==1?'PAID':'WINNER'):'LOST'; break;
+		case 4: txt = tstatus==1?'REFUNDED':'REFUND'; break;
+	}
+	return txt;
+}
+function calcOdds(t1, t2, t3) {
+	let tt = t1+t2+t3;
+	let odds1 = t1>0 ? (tt/t1*100) : 0;
+	let odds2 = t2>0 ? (tt/t2*100) : 0;
+	let odds3 = t3>0 ? (tt/t3*100) : 0;
+	console.warn(odds1,odds2,odds3);
+	return {odds1,odds2,odds3};
+}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GU3SS</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1, shrink-to-fit=no" />
+    <meta name="application-name" content="GU3SS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="/media/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-076.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-180.png" sizes="180x180">
+    <link rel="shortcut icon"    href="/media/favicon/guess-180.png" sizes="180x180">
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+<body class="dark-mode">
+<header class="play-header">
+	<div class="brand">
+		<a href="/"><img class="logo" src="/media/header-red.png"></a>
+	</div>
+    <div id="topbar">
+        <li><span id="user-address" onclick="onConnect()">Connect Wallet - 0.0000 TRX</span> - <span id="network">Shasta Testnet</span></li> 
+    </div>
+    <div id="warn">Wallet not available • Betting is disabled</div>
+    <nav class="menu"><a href="/play">Play</a> <a href="/mytickets">My Tickets</a> <a href="/sales">Sales</a> <a href="/faq">FAQ</a></nav>
+</header>
+<content>
+    <div id="events">
+        <div id="month"><%=getMonthName(now)%></div>
+        <div id="week"> 
+            <button class="day" onclick="onDay(1)"><li class="day-name" id="dayx1"><%=getDayName(now.addDays(-3))%></li><li class="day-number" id="day1"><%=getDayNumber(now.addDays(-3))%></li></button>
+            <button class="day" onclick="onDay(2)"><li class="day-name" id="dayx2"><%=getDayName(now.addDays(-2))%></li><li class="day-number" id="day2"><%=getDayNumber(now.addDays(-2))%></li></button>
+            <button class="day" onclick="onDay(3)"><li class="day-name" id="dayx3"><%=getDayName(now.addDays(-1))%></li><li class="day-number" id="day3"><%=getDayNumber(now.addDays(-1))%></li></button>
+            <button class="day sel" onclick="onDay(4)"><li class="day-name" id="dayx4"><%=getDayName(now)%></li><li class="day-number" id="day4"><%=getDayNumber(now)%></li></button>
+            <button class="day" onclick="onDay(5)"><li class="day-name" id="dayx5"><%=getDayName(now.addDays(1))%></li><li class="day-number" id="day5"><%=getDayNumber(now.addDays(1))%></li></button>
+            <button class="day" onclick="onDay(6)"><li class="day-name" id="dayx6"><%=getDayName(now.addDays(2))%></li><li class="day-number" id="day6"><%=getDayNumber(now.addDays(2))%></li></button>
+            <button class="day" onclick="onDay(7)"><li class="day-name" id="dayx7"><%=getDayName(now.addDays(3))%></li><li class="day-number" id="day7"><%=getDayNumber(now.addDays(3))%></li></button>
+        </div>
+
+        <div id="all-lists">
+       		<% league = ''; %>
+            <% if(list.length>0) { %>
+           		<% list.forEach(function(item){ %>
+              		<% if(item.league!==league){ %>
+              			<% if(league!==''){ %>
+            			    	</tbody>
+			            	</table>
+               			<% } %>
+						<% league = item.league; %>
+	    	        	<table class="list" id="<%=league%>">
+        	    	    	<tbody>
+                			<caption><%=getLeague(item.league);%></caption>
+               		<% } %>
+			    	<%
+						time    = getTime(item.date);
+			    		stClass = statusClass(item.status);
+			    		stText  = statusText(item.status);
+						if(item.status<2) {stText = time;}
+			    		score   = '0 - 0';
+			    		sales   = item.option1+item.option2+item.option3;
+			    		odds1   = item.option1>0 ? sales/item.option1*100 : 0;
+						odds2   = item.option2>0 ? sales/item.option2*100 : 0;
+						odds3   = item.option3>0 ? sales/item.option3*100 : 0;
+						draw    = matchTie(item.league);
+						noplay  = draw?'okplay':'noplay';
+						okplay  = item.status==1?'okplay':'noplay';
+						if(item.status==0) {
+							score = 'VS';
+						} else if(item.status==1) {
+							score = draw?'DRAW':'VS';
+						} else if(item.status=='2'){
+							score = '0 - 0';
+						} else if(item.status=='3'){
+							lose1 = (score1 < score2?'loser':'winner');
+							lose2 = (score2 < score1?'loser':'winner');
+			    			score = '<span class="big '+lose1+'">'+score1+'</span> - <span class="big '+lose2+'">'+score2+'</span>';
+						} else {
+							score = item.notes;
+						}
+			    	%>
+							<tr id="<%=item.eventid%>" league="<%=item.league%>">
+							    <td>
+							    	<div class="rowflex">
+							            <div class="team1"><img class="team1-icon" src="/teams/<%=item.league.toLowerCase()%>/<%=item.icon1%>" title="<%=item.name1%>"></div>
+							            <div class="play <%=okplay%>" onclick="onPlay('<%=item.eventid%>', 1)">
+							            	<span class="team-name"><%=item.team1%></span>
+							            	<span class="team-odds"><%=item.odds1||200%></span>
+							            </div>
+							    	</div>
+							    </td>
+							    <td>
+							    	<div class="colflex">
+							            <div class="status <%=stClass%>"><%=stText%></div>
+							            <div class="play <%=noplay%>" onclick="onPlay('<%=item.eventid%>', 3)">
+							            	<span class="team-name"><%=score%></span>
+							            	<span class="team-odds"><%=item.odds3||''%></span>
+							            </div>
+							        </div>
+							    </td>
+							    <td>
+							    	<div class="rowflex">
+							            <div class="play <%=okplay%>" onclick="onPlay('<%=item.eventid%>', 2)">
+							            	<span class="team-name"><%=item.team2%></span>
+							            	<span class="team-odds"><%=item.odds2||200%></span>
+							            </div>
+							            <div class="team2"><img class="team2-icon" src="/teams/<%=item.league.toLowerCase()%>/<%=item.icon2%>" title="<%=item.name2%>"></div>
+							        </div>
+							    </td>
+							</tr>
+                <% }); %>
+                </tbody>
+            </table>
+            <% } else { %>
+				<table class="list" id="list-events">
+					<caption>Events</caption>
+					<tbody>
+						<tr><td class="center">No events on this date</td></tr>
+					</tbody>
+				</table>
+            <% } %>
+        </div>
+
+        <div id="all-bets">
+            <table class="tixs" id="list-tickets">
+                <caption id="tixs-title">Tickets Sold Today</caption>
+                <tbody>
+		            <% if(tixs.length>0) { %>
+        		   		<% tixs.forEach(function(item){ %>
+	                		<tr>
+	                			<td><a href="<%=config.explorer%>/#/transaction/<%=item.trxid%>" target="_blank"><%=item.eventid%></a></td>
+	                			<td><%=item.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })%></td>
+	                			<td><span class="<%=item.choice==1?'pick':''%>"><%=item.team1%></span></td>
+	                			<td>vs</td>
+	                			<td><span class="<%=item.choice==2?'pick':''%>"><%=item.team2%></span></td>
+	                			<td><%=item.amount%> TRX</td>
+	                			<td><%=item.player?item.player.substr(0,8):'Unknown'%></td>
+	                		</tr>
+    		        	<% }) %>
+    		        <% } else { %>
+						<tr><td>&nbsp;</td><td class="center">No tickets sold on this date</td></tr>
+    		        <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="rules">
+        	<h1>RULES AND CONDITIONS</h1>
+        	<p>In order to play in GU3SS you must install TronLink, wallet extension for TRON blockchain</p>
+        	<p>You can bet on any event that has not started. Select the day of events and pick your team. A form will pop up with your selection where you will be able to enter any amount to bet. TronLink wallet will ask you to confirm your selection and amount, then your ticket will be stored in the blockchain</p>
+        	<p>You can't play on past events. If you try to bet on an event past the starting time the ticket will be invalidated</p>
+        	<p>You can redeem your ticket if you selected the winning option once the event has finished and the scores confirmed, minus fees. If an event is cancelled or postponed, we will refund your ticket at full value</p>
+        	<hr class="separator">
+        	<h1>DISCLAIMER</h1>
+        	<p>Void where prohibited by law. We will provide the most accurate information for games of the day, malfunctions while providing that information are very unlikely but can happen. In such cases we will try to honor the best possible outcome or consider the result for that day invalid and refund all the plays. We are not responsible for any loss due to user mistakes while picking teams or sending payments, still we will provide all assistance necessary to make our play the best experience of all. All schedules and scores provided by mlb.com</p>
+
+        </div>
+    </div>
+</content>
+<footer>
+	<div class="rights">GU3SS &copy; 2022</div>
+</footer>
+
+<!-- FORMS -->
+
+<div id="play-modal" onclick="hideForm()">
+    <div id="play-form" onclick="ignoreClick()">
+        <input type="hidden" id="play-eventid">
+        <input type="hidden" id="play-option">
+        <h1 class="play-title">Your Pick</h1>
+        <h2 id="play-team">Lakers</h2>
+        <h3 class="play-odds">Odds <span id="play-odds">120</span></h3>
+        <h3 class="play-bets">Bet Amount in TRX</h3>
+        <input id="play-amount" type="number" min="1" value="100" autocomplete="off">
+        <div><button class="instabet" onclick="setBet(10)">10</button><button class="instabet" onclick="setBet(100)">100</button><button class="instabet" onclick="setBet(500)">500</button><button class="instabet" onclick="setBet(1000)">1000</button>
+        </div>
+        <h3 id="play-ubet">You bet 100 - You win 120</h3>
+        <button id="play-exit" onclick="hideForm()">CLOSE</button>
+        <button id="play-send" onclick="placeBet()">BET</button>
+        <li id="play-message"></li>
+    </div>
+</div>
+
+<!-- TEMPLATES -->
+
+<templates style="display:none">
+    <div id="ui-list-events">
+        <table class="list" id="list-{symbol}">
+            <caption>{name}</caption>
+            <thead></thead>
+            <tbody>{rows}</tbody>
+            <tfoot></tfoot>
+        </table>
+    </div>
+    <template id="ui-row-event">
+        <tr id="event-{eventid}" league="{league}">
+            <td>
+            	<div class="rowflex">
+	                <div class="team1"><img class="team1-icon" src="/teams/{leaguex}/{icon1}" title="{name1}"></div>
+	                <div class="play {okplay}" onclick="onPlay('{eventid}', 1)">
+	                	<span class="team-name">{team1}</span>
+	                	<span class="team-odds">{odds1}</span>
+	                </div>
+            	</div>
+            </td>
+            <td>
+            	<div class="colflex">
+	                <div class="status {status-class}" title="Event {eventid}">{status-text}</div>
+	                <div class="play {noplay}" onclick="onPlay('{eventid}', 3)">
+	                	<span class="team-name">{score}</span>
+	                	<span class="team-odds">{odds3}</span>
+	                </div>
+                </div>
+            </td>
+            <td>
+            	<div class="rowflex">
+	                <div class="play {okplay}" onclick="onPlay('{eventid}', 2)">
+	                	<span class="team-name">{team2}</span>
+	                	<span class="team-odds">{odds2}</span>
+	                </div>
+	                <div class="team2"><img class="team2-icon" src="/teams/{leaguex}/{icon2}" title="{name2}"></div>
+                </div>
+            </td>
+        </tr>
+    </template>
+    <template id="ui-row-noevents">
+        <tr>
+            <td class="center">No events on this date</td>
+        </tr>
+    </template>
+    <template id="ui-row-bet">
+		<tr>
+			<td><a href="{trxurl}" target="_blank">{eventid}</a></td>
+			<td>{time}</td>
+			<td><span class="{pick1}">{team1}</span></td>
+			<td>vs</td>
+			<td><span class="{pick2}">{team2}</span></td>
+			<td>{amount} TRX</td>
+			<td>{player}</td>
+		</tr>
+    </template>
+    <template id="ui-row-nobets">
+        <tr>
+            <td class="center">No tickets on this date</td>
+        </tr>
+    </template>
+    <template id="ui-row-ticket">
+   		<tr>
+			<td><a href="{urltrx}" target="_blank">{eventid}</a></td>
+			<td>{time}</td>
+			<td><span class="{pick1}">{team1}</span></td>
+			<td>vs</td>
+			<td><span class="{pick2}">{team2}</span></td>
+			<td>{amount} TRX</td>
+			<td>{player}</td>
+		</tr>
+    </template>
+</templates>
+<script>
+let config = <%-JSON.stringify(config, null, 4)%>;
+</script>
+<script src="/scripts/events.js"></script>
+<script src="/scripts/forms.js"></script>
+<script src="/scripts/main.js"></script>
+</body>
+</html>

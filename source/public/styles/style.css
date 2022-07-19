@@ -1,0 +1,293 @@
+/* style.css */
+
+.light-mode {
+  --back-primary:     #FAFAFA;
+  --back-secondary:   #FDFDFD;
+  --back-alternate:   #F8F8F8;
+  --back-highlight:   #EAEAEA;
+  --back-selected:    #DDD;
+  --border-primary:   #E4E4E4;
+  --border-secondary: #DDD;
+  --border-alternate: #E4E4E4;
+  --button-border:    #00AA88;
+  --button-text:      #00AA88;
+  --button-hover:     #00AA88;
+  --button-htext:     #FFFFFF;
+  --color-primary:    #222;
+  --color-secondary:  #666;
+  --color-accented:   #0A8;
+  --color-input:      #222;
+  --color-dark:       #000;
+  --color-warn:       #C04;
+  --color-winner:     #D80;
+  --link-normal:      #69C;
+  --link-visited:     #69C;
+}
+.dark-mode {
+  --back-primary:     #202020;
+  --back-secondary:   #111111;
+  --back-alternate:   #282828;
+  --back-highlight:   #323232;
+  --back-selected:    #161616;
+  --border-primary:   #323232;
+  --border-secondary: #525252;
+  --border-alternate: #323232;
+  --button-primary:   #00AA88;
+  --button-awarded:   #FF6600;
+  --button-border:    #00AA88;
+  --button-text:      #00AA88;
+  --button-hover:     #00AA88;
+  --button-htext:     #FFFFFF;
+  --color-primary:    #FAFAFA;
+  --color-secondary:  #AAAAAA;
+  --color-accented:   #FFFFFF;
+  --color-input:      #FFFFFF;
+  --color-dark:       #111111;
+  --color-warn:       #CC0044;
+  --color-winner:     #D80;
+  --link-normal:      #6699CC;
+  --link-visited:     #6699CC;
+}
+
+body     { margin: 0 auto; padding: 0; background-color: #000; color: #eee; font: normal 1em sans-serif; }
+header   { margin: 0; padding: 0; text-align: left; }
+content  { display: block; text-align: center; }
+footer   { margin:100px 0 0 0; padding: 100px; background: #88888833; border-top: 30px solid #222; }
+wrap     { width: 100%; display: block; margin: 0 auto; padding: 0; }
+template { display: none; }
+
+/* BASE ELEMENTS */
+h1, h2, h3, h4, h5, h6 { font-weight: 200; }
+a { color: #ccc; text-decoration: none; }
+li { list-style: none; }
+.separator { margin: 40px 0; border: none; }
+
+.action { display: inline-block;  background-color: #c13; color: #eee; border: none; border-radius: 8px; padding: 8px 40px; font-weight: bold; }
+.action:hover { background-color: #e13; color: #fff; }
+
+.margin20 { margin-top: 20px; }
+.margin30 { margin-top: 30px; }
+.right { text-align: right; }
+.dim { color: #888; }
+
+/* CONTENT */
+
+.main-header { height: 880px; margin: 0; padding: 100px; text-align: left; background: url(/media/hero-04.jpg) top no-repeat; background-size: cover; }
+.play-header { padding-top: 50px; }
+.logo { width: 250px; }
+nav { display:block; text-align: right; }
+nav a { display: inline-block; padding: 4px 10px; color: #eee; }
+nav a:hover { color: #fff; }
+.menu { text-align: center; margin-top: 10px; }
+.info h1 { font-size: 4em; margin-top: 140px; }
+.info h2 { font-size: 3em; }
+.action-play { width: 300px; margin-top: 280px; margin-left: 450px; text-align: center; }
+#playnow { font-size: 2em; }
+
+.details { height: 300px; background: #236393; border-top: 30px solid #fff; border-bottom: 30px solid #fff; }
+.details .panel h1 { display: inline-block; width: 50px; height: 50px; margin-bottom: 0; padding: 10px; font-size: 3em; font-weight: 900; border: 4px solid #fff; border-radius: 100px; }
+.details .panel h2 { font-size: 2em; font-weight: 900; }
+.details .panel h2 big { font-size: 2em; color: #ff8; }
+
+.partners { margin: 100px 0; padding: 100px; text-align: center; }
+.partner  { border-radius: 10px; }
+.partner-title x  { color: #78f; }
+.partner-title    { font-size: 4em; font-weight: 900; text-align: left; margin-top: 200px; }
+.partner-subtitle { font-size: 2em; text-align: left; }
+.partner-text     { font-size: 1em; text-align: left; margin-top: 40px; }
+.panels   { display: flex; flex-direction: row; }
+.panel    { flex: 1 1 0; /*border: 1px solid gold;*/ }
+.apps { margin-top: 40px; display: flex; flex-direction: row; }
+.getapp { width: 80px; margin: 10px 20px 10px 0; padding: 4px 20px; display:flex; flex-direction: row; justify-content: center; align-content: center; align-items: center; border-radius: 20px; border: none; background-color: #fff; color: #333; font-size: 0.9em; }
+.getapp img { margin-right: 4px; }
+
+.rights { text-align: center; font-weight: 200; font-size: 1.4em; }
+
+.notfound { min-height: 720px; display: flex; justify-content: center; align-content: center; align-items: center; }
+.notready { }
+
+
+/* EVENTS */
+
+#events { margin-top: 40px; }
+.brand { margin: 0 auto 20px; text-align: center; }
+#topbar { width: 500px; margin: 0 auto; padding: 2px 0; text-align: center; color: var(--color-secondary); background-color: #333; border: 1px solid #444; }
+#topbar li { display: inline-block; margin: 0; padding: 3px; color: var(--color-primary); cursor: pointer; outline: none; }
+#topbar li:hover { color: #ffa; }
+
+#wallet { width: 24px; height: 20px; background: url('/media/walletredx16.png') no-repeat center; border: none; outline: none; cursor: pointer; }
+#wallet:hover { background-image: url('/media/walletred16.png'); }
+
+#warn { display: none; margin-top: 10px; color: #FF0; }
+
+#month { font-size: 200%; }
+#week  { width: 640px; margin: 0 auto 50px; }
+.day   { width: 86px; padding: 10px 0; font-size: 200%; color: var(--color-secondary); background-color: var(--back-primary); border: 1px solid var(--border-primary); outline:none; cursor: pointer; }
+.day-name { font-size: 40%; color: var(--color-secondary); }
+.day.sel { width: 96px; padding: 10px; font-size: 300%; color: var(--color-primary); background-color: var(--back-alternate); border-top: 4px solid #800; }
+.day:hover { color: var(--color-primary); }
+
+.list { width: 640px; margin: 50px auto; font-size: 120%; background-color: var(--back-primary); border: 1px solid var(--border-primary); border-collapse: collapse; }
+.list caption { padding: 4px 0; font-size: 150%; background-color: var(--back-alternate); }
+.list tr { border-bottom: 1px solid var(--border-primary); }
+.list img {  }
+.list td { vertical-align: middle; padding: 10px 0; }
+.list td:nth-child(1) { width: 250px; max-width: 250px; }
+.list td:nth-child(2) { width: 140px; max-width: 140px; }
+.list td:nth-child(3) { width: 250px; max-width: 250px; }
+.center { text-align: center; }
+
+/* TICKETS */
+.tixs { width: 640px; margin: 50px auto; font-size: 120%; background-color: var(--back-primary); border: 1px solid var(--border-primary); border-collapse: collapse; }
+.tixs caption { padding: 4px 0; font-size: 150%; background-color: var(--back-alternate); }
+.tixs tr { border-bottom: 1px solid var(--border-primary); }
+.tixs td { vertical-align: middle; padding: 10px 0; }
+.tixs td:nth-child(1) { /*width: 250px; max-width: 250px;*/ }
+.tixs td:nth-child(2) { /*width: 140px; max-width: 140px;*/ }
+.tixs td:nth-child(3) { /*width: 250px; max-width: 250px;*/ }
+.tixs td:nth-child(4) { /*width: 250px; max-width: 250px;*/ }
+.tixs td:nth-child(5) { /*width: 250px; max-width: 250px;*/ }
+.tixs td:nth-child(6) { /*width: 250px; max-width: 250px;*/ }
+.tixs td:nth-child(7) { /*width: 250px; max-width: 250px;*/ }
+.pick { display: inline-block; width: 70px; border: 1px solid #555; border-radius: 3px; background-color: #333; /* font-weight: bold; color: #ff8;*/ }
+.won  { font-weight: bold; color: #ff8; }
+.tixs tr.dim { color: #666; }
+.tixs tr.dim td span.won { color: #660; }
+.tixs tr.dim td a { color: #666; }
+x { color: #666; }
+.cash { padding: 2px 10px; border-radius: 3px; border: 2px solid #48a; color: #fff; background-color: #369; cursor: pointer; }
+.cash:hover { border: 2px solid #369; background-color: #48a; }
+.cash:disabled { border: 2px solid #555; color: #666; background-color: #444; cursor: none; pointer-events: none; }
+.back { padding: 2px 10px; border-radius: 3px; border: 2px solid #4a8; color: #fff; background-color: #396; cursor: pointer; }
+.back:hover { border: 2px solid #396; background-color: #4a8; }
+.back:disabled { border: 2px solid #555; color: #666; background-color: #444; cursor: none; pointer-events: none; }
+
+
+.venue  { height: 24px; color: var(--color-secondary); text-align: right; font-size: 80%; line-height: 1em; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.status { height: 24px; color: var(--color-primary);   text-align: center; font-size: 80%; }
+.date   { height: 24px; color: var(--color-secondary); text-align: left; font-size: 80%; }
+
+.setup     { color: #A00; }
+.open      { color: #FFF; }
+.closed    { color: #48C; }
+.live      { color: #FFA; }
+.cancelled { color: #D00; }
+.postponed { color: #D00; }
+.ppd       { color: #D00; }
+.awarded   { color: #FC0; }
+.final     { color: #FC0; }
+.loser     { color: #AAA; }
+.link      { color: #FFF; }
+.big       { font-size: 1.5em }
+
+/*.team1 { text-align: right;  font-size: 150%; height: 50px; display: flex; justify-content: center; align-items: center; }*/
+/*.teamX { text-align: center; font-size: 150%; height: 50px; display: flex; justify-content: center; align-items: center; }*/
+/*.team2 { text-align: left;   font-size: 150%; height: 50px; display: flex; justify-content: center; align-items: center; }*/
+
+.team1-icon { display: inline-block; width: 64px; height: 64px; margin-left: 10px; }
+.team1-name { display: inline-block; width: 185px; cursor: pointer; }
+
+.team2-name { display: inline-block; width: 185px; cursor: pointer; }
+.team2-icon { display: inline-block; width: 64px; height: 64px; margin-right: 10px; }
+
+.odds1 { text-align: right;  height: 24px; }
+.oddsX { text-align: center; height: 24px; }
+.odds2 { text-align: left;   height: 24px; }
+.draw.hide  { visibility: hidden; }
+
+.logovs { width: 48px; height: 48px; }
+
+.rowflex { display: flex; flex-direction: row; align-content: center; align-items: center; justify-content: center; }
+.colflex { display: flex; flex-direction: column; align-content: center; align-items: center; justify-content: center; }
+.team1 { display: inline-block; margin-right: 20px; }
+.team2 { display: inline-block; margin-left: 20px; }
+.team-name { display: inline-block; width: 85px; }
+.team-odds { display: inline-block; width: 85px; color: #888; font-size: small; }
+.play { display: inline-block; width: 100px; padding: 4px; border: none; background-color: transparent; }
+.noplay { pointer-events: none; }
+.okplay { border: 1px solid #444; border-radius: 4px; cursor: pointer; }
+.okplay:hover { background-color: #333; }
+
+
+/* SALES */
+#day-sales { margin-top: 40px; }
+.sales { width: 1040px; margin: 50px auto; font-size: 120%; background-color: var(--back-primary); border: 1px solid var(--border-primary); border-collapse: collapse; }
+.sales caption { padding: 4px 0; font-size: 150%; background-color: var(--back-alternate); }
+.sales tr { border-bottom: 1px solid var(--border-primary); }
+.sales td { vertical-align: middle; padding: 10px 0; }
+.sales td:nth-child(1) {  }
+
+
+/* BETTING FORM */
+#play-modal { z-index: 3; display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: auto; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.5); }
+#play-form  { position: absolute; width: 400px; height: 440px; top: 50%; left: 50%; margin: -220px 0 0 -200px; text-align: center; background-color: var(--back-primary); border: 1px solid #444; border-radius: 10px 10px 0 0; }
+.play-title { margin: 4px; padding: 4px; text-align: center; font-weight: normal; background-color: #800; border: 1px solid #444; border-radius: 10px 10px 0 0; }
+#play-team  { font-size: 2em; font-weight: bold; margin-bottom: 0; padding-bottom: 0; }
+.play-odds  { margin-top: 10px; margin-bottom: 30px; font-weight: 300; }
+.play-bets  { padding: 5px; width: 300px; margin: 0 auto; font-weight: bold; }
+#play-odds  {  }
+#play-amount { width: 300px; font-size: 2em; text-align: center; color: #fff; background-color: #444; border: 1px solid #666; }
+#play-ubet  { margin-bottom: 20px; font-weight: 300; }
+#play-send  { width: 100px; margin: 10px; padding: 10px 0; border: 1px solid #48C; border-radius: 3px; color: #48C; background-color: transparent; cursor: pointer; }
+#play-send:disabled { border: 1px solid #444; color: #444; }
+#play-exit  { width: 100px; margin: 10px; padding: 10px 0; border: 1px solid #C00; border-radius: 3px; color: #C00; background-color: transparent; cursor: pointer; }
+#play-message { margin-top: 20px; color: #FF6; }
+.instabet   { width: 76px; border: 1px solid #444; border-radius: 3px; background-color: #333; color: #aaa; cursor: pointer; }
+.instabet:hover { background-color: #444; }
+
+
+#rules  { width: 640px; margin: 100px auto; color: #aaa; font-size: 80%; }
+#faq    { width: 640px; margin: 100px auto; }
+#faq h1 { margin: 60px 0; }
+#faq h2 { color: #0ae; }
+#faq a  { color: #66f; }
+#faq p  { padding-bottom: 30px; border-bottom: 1px solid #444; }
+
+
+@media screen and (max-width: 720px) {
+  /* PLAY  */  
+  #topbar  { width: auto; }
+  #week    { width: auto; }
+  #rules   { width: auto; padding: 0 5%; }
+  .play    { width: auto; }
+  .day     { width: 12%;  }
+  .day.sel { width: 15%;  }
+  .list    { width: 100%; }
+  .tixs    { width: 100%; }
+  .tixs td:nth-child(1) { display: none; }
+  .tixs td:nth-child(7) { display: none; }
+  .team1   { margin-right: 10px; }
+  .team2   { margin-left:  10px; }
+  .team1-icon { width: 32px; height: 32px; margin-left:  10px; }
+  .team2-icon { width: 32px; height: 32px; margin-right: 10px; }
+
+  /* INDEX */
+  nav      { text-align: center; background-color: #000000aa; }
+  .main-header { padding: 40px 5%; }
+  .panels  { flex-direction: column; }
+  .logo    { display: block; width: 60%; margin: 0 auto; }
+  .panel.right { text-align: center; }
+  .info h1 { font-size: 2em; margin-top: 30px; margin-bottom: 0; }
+  .info h2 { font-size: 1.5em; margin: 0; }
+  .action-play { width: auto; margin-left: auto; }
+  .details  { height: 900px; }
+  .partners { margin: 10px; padding: 10px; }
+  .partner  { width: 100%; }
+  .partner-title    { text-align: center; margin-top: 100px; }
+  .partner-subtitle { text-align: center; }
+  .partner-text     { text-align: center; }
+  .apps   { margin-bottom: 40px; }
+  .getapp { margin: 10px; }
+
+  .sales { width: 100%; }
+  .sales #span { display: none; }
+  .sales thead th:nth-child(1) { display:none; }
+  .sales thead th:nth-child(4) { display:none; }
+  .sales thead th:nth-child(5) { display:none; }
+  .sales tbody td:nth-child(1) { display:none; }
+  .sales tbody td:nth-child(4) { display:none; }
+  .sales tbody td:nth-child(5) { display:none; }
+
+}
+
+/* END */

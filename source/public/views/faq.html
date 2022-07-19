@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GU3SS</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1, shrink-to-fit=no" />
+    <meta name="application-name" content="GU3SS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="/media/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-076.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-180.png" sizes="180x180">
+    <link rel="shortcut icon"    href="/media/favicon/guess-180.png" sizes="180x180">
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+<body class="dark-mode">
+<header class="play-header">
+    <div class="brand">
+        <a href="/"><img class="logo" src="/media/header-red.png"></a>
+    </div>
+    <div id="topbar">
+        <li><span id="user-address" onclick="onConnect()">Connect Wallet - 0.0000 TRX</span> - <span id="network">Shasta Testnet</span></li> 
+    </div>
+    <div id="warn">Wallet not available • Betting is disabled</div>
+    <nav class="menu"><a href="/play">Play</a> <a href="/mytickets">My Tickets</a> <a href="/sales">Sales</a> <a href="/faq">FAQ</a></nav>
+</header>
+<content>
+    <div id="faq">
+        <h1>Frequently Asked Questions</h1>
+        <h2>What is GU3SS?</h2>
+        <p>GU3SS is a decentralized betting platform developed on TRON Blockchain that allows you to bet on any imaginable sporting event</p>
+        <h2>What do I need to play?</h2>
+        <p>You need to install <a href="https://www.tronlink.org" target="_blank">TRONLINK</a> wallet in your browser or mobile phone in order to place bets using TRX, nothing else, no registration, no KYC, totally anonymous</p>
+        <h2>What sports can I bet on?</h2>
+        <p>Right now you can only bet on Major League Baseball, more sports will be available in the future like Soccer, Basketball, Football, Hockey, etc</p>
+        <h2>Is it on Mainnet or Testnet?</h2>
+        <p>Only Shasta Testnet for the moment as we finish the app, once ready we will move it to Mainnet</p>
+        <h2>When are scores updated?</h2>
+        <p>Scores are updated every day in the morning after the last game of the day has finished, usually around 3am EST</p>
+        <h2>What if I win?</h2>
+        <p>You can claim your winnings in 'My Tickets' section if you selected the winning team</p>
+        <h2>What if I lose?</h2>
+        <p>Nothing as we are in Testnet, you keep playing and having fun</p>
+        <h2>What if an event is cancelled or postponed?</h2>
+        <p>Your ticket will be refunded in full in 'My Tickets' section, no fees charged</p>
+        <h2>What are the fees?</h2>
+        <p>We take a 10% cut on every valid game after scores are updated</p>
+        <h2>How are odds calculated?</h2>
+        <p>Odds are calculated based on the stakes for each team, winner takes all. If team ONE has received 100 in bets and team TWO received 200, then the winner will take 300 minus fees</p>
+        <h2>Can I create my own pool?</h2>
+        <p>In GU3SS Version 2.0 everybody will be able to open pools for any imaginable event making it the only decentralized betting app in the world</p>
+        <h2>What if I have any other question?</h2>
+        <p>Just drop us a line at the <a href="https://forum.trondao.org/t/gu3ss-by-kuyawa-entertainment-and-sports-staking/2777" target="_blank">Forum</a> while we setup our social networks</p>
+    </div>
+</content>
+<footer>
+    <div class="rights">GU3SS &copy; 2022</div>
+</footer>
+<script>
+let config = <%-JSON.stringify(config, null, 4)%>;
+</script>
+<script src="/scripts/main.js"></script>
+</body>
+</html>

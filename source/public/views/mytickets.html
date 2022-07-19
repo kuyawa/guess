@@ -1,0 +1,95 @@
+<%
+function getTicketStatus(estatus, winner, tstatus, trxid) {
+    let txt = '';
+    switch(estatus){
+        case 0: txt = ''; break;
+        case 1: txt = ''; break;
+        case 2: txt = ''; break;
+        case 3: txt = winner?(tstatus==1?'<x>PAID</x>':`<button class="cash" onclick="onCashout(event, '${trxid}')">WINNER</button>`):'<x>LOST</x>'; break;
+        case 4: txt = tstatus==1?'<x>PAID</x>':`<button class="back" onclick="onRefund(event, '${trxid}')">REFUND</button>`; break;
+    }
+    return txt;
+}
+function getTicketClass(estatus, winner, tstatus) {
+    let txt = '';
+    switch(estatus){
+        case 0: txt = ''; break;
+        case 1: txt = ''; break;
+        case 2: txt = ''; break;
+        case 3: txt = winner?(tstatus==1?'dim':''):'dim'; break;
+        case 4: txt = tstatus==1?'dim':''; break;
+    }
+    return txt;
+}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GU3SS</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1, shrink-to-fit=no" />
+    <meta name="application-name" content="GU3SS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="/media/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-076.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-180.png" sizes="180x180">
+    <link rel="shortcut icon"    href="/media/favicon/guess-180.png" sizes="180x180">
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+<body class="dark-mode">
+<header class="play-header">
+    <div class="brand">
+        <a href="/"><img class="logo" src="/media/header-red.png"></a>
+    </div>
+    <div id="topbar">
+        <li><span id="user-address" onclick="onConnect()">Connect Wallet - 0.0000 TRX</span> - <span id="network">Shasta Testnet</span></li> 
+    </div>
+    <div id="warn">Wallet not available • Betting is disabled</div>
+    <nav class="menu"><a href="/play">Play</a> <a href="/mytickets">My Tickets</a> <a href="/sales">Sales</a> <a href="/faq">FAQ</a></nav>
+</header>
+<content>
+    <div id="all-bets">
+        <table class="tixs" id="list-tickets">
+            <caption>My Tickets</caption>
+            <tbody>
+                <% if(list.length>0) { %>
+                    <% list.forEach(function(item){ %>
+                        <tr class="<%=getTicketClass(item.estatus, item.winner, item.status)%>">
+                            <td><a href="<%=config.explorer%>/#/transaction/<%=item.trxid%>" target="_blank"><%=item.eventid%></a></td>
+                            <!-- <td><%=item.edate.toJSON().substr(0,10)%></td> -->
+                            <td><%=(new Date(item.eday*1000)).toJSON().substr(0,10)%></td>
+                            <td><span class="<%=item.choice==1?'pick':'';%> <%=item.ewinner==1?'won':'';%>"><%=item.team1%></span></td>
+                            <td><% if(item.estatus==4) { %>PPD<% } else { %><%=item.score1+'-'+item.score2%><% } %></td>
+                            <td><span class="<%=item.choice==2?'pick':'';%> <%=item.ewinner==2?'won':'';%>"><%=item.team2%></span></td>
+                            <td><%=item.amount%> TRX</td>
+                            <td><%-getTicketStatus(item.estatus, item.winner, item.status, item.trxid)%></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr><td>&nbsp;</td><td class="center">No tickets purchased</td><td>&nbsp;</td></tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <div id="rules">
+        <h1>IF YOU WIN...</h1>
+        <p>You are responsible for claiming your prizes. Click on a winning ticket and transfer rewards to your wallet</p>
+        <h1>IF AN EVENT IS CANCELLED...</h1>
+        <p>You are responsible for your own refunds. Click on a cancelled ticket and claim your money back</p>
+    </div>
+</content>
+<footer>
+    <div class="rights">GU3SS &copy; 2022</div>
+</footer>
+<script>
+let config = <%-JSON.stringify(config, null, 4)%>;
+</script>
+<script src="/scripts/mytickets.js"></script>
+<script src="/scripts/main.js"></script>
+</body>
+</html>

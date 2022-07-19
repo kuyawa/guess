@@ -1,0 +1,145 @@
+<%
+let now = new Date();
+function getTicketStatus(estatus, winner, tstatus, trxid) {
+    let txt = '';
+    switch(estatus){
+        case 0: txt = ''; break;
+        case 1: txt = ''; break;
+        case 2: txt = ''; break;
+        case 3: txt = winner?(tstatus==1?'<x>PAID</x>':`<button class="cash" onclick="onCashout(event, '${trxid}')">WINNER</button>`):'<x>LOST</x>'; break;
+        case 4: txt = tstatus==1?'<x>REFUNDED</x>':`<button class="back" onclick="onRefund(event, '${trxid}')">REFUND</button>`; break;
+    }
+    return txt;
+}
+function getTicketClass(estatus, winner, tstatus) {
+    let txt = '';
+    switch(estatus){
+        case 0: txt = ''; break;
+        case 1: txt = ''; break;
+        case 2: txt = ''; break;
+        case 3: txt = winner?(tstatus==1?'dim':''):'dim'; break;
+        case 4: txt = tstatus==1?'dim':''; break;
+    }
+    return txt;
+}
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+function getTime(date) {
+    let hh = date.getHours();
+    let mm = date.getMinutes();
+    let tt = hh.toString().padStart(2,'0')+':'+mm.toString().padStart(2,'0');
+    return tt;
+}
+function getMonthName(date) {
+    return date.toLocaleDateString([],{month: 'long'});
+}
+function getDayName(date) {
+    return date.toLocaleDateString([],{weekday: 'short'}).toUpperCase();
+}
+function getDayNumber(date) {
+    return date.getDate();
+}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GU3SS</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1, shrink-to-fit=no" />
+    <meta name="application-name" content="GU3SS">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="/media/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-076.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/media/favicon/guess-180.png" sizes="180x180">
+    <link rel="shortcut icon"    href="/media/favicon/guess-180.png" sizes="180x180">
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+<body class="dark-mode">
+<header class="play-header">
+    <div class="brand">
+        <a href="/"><img class="logo" src="/media/header-red.png"></a>
+    </div>
+    <div id="topbar">
+        <li><span id="user-address" onclick="onConnect()">Connect Wallet - 0.0000 TRX</span> - <span id="network">Shasta Testnet</span></li> 
+    </div>
+    <div id="warn">Wallet not available • Betting is disabled</div>
+    <nav class="menu"><a href="/play">Play</a> <a href="/mytickets">My Tickets</a> <a href="/sales">Sales</a> <a href="/faq">FAQ</a></nav>
+</header>
+<content>
+    <div id="day-sales">
+        <div id="month"><%=getMonthName(now)%></div>
+        <div id="week"> 
+            <button class="day" onclick="onDay(1)"><li class="day-name" id="dayx1"><%=getDayName(now.addDays(-3))%></li><li class="day-number" id="day1"><%=getDayNumber(now.addDays(-3))%></li></button>
+            <button class="day" onclick="onDay(2)"><li class="day-name" id="dayx2"><%=getDayName(now.addDays(-2))%></li><li class="day-number" id="day2"><%=getDayNumber(now.addDays(-2))%></li></button>
+            <button class="day" onclick="onDay(3)"><li class="day-name" id="dayx3"><%=getDayName(now.addDays(-1))%></li><li class="day-number" id="day3"><%=getDayNumber(now.addDays(-1))%></li></button>
+            <button class="day sel" onclick="onDay(4)"><li class="day-name" id="dayx4"><%=getDayName(now)%></li><li class="day-number" id="day4"><%=getDayNumber(now)%></li></button>
+            <button class="day" onclick="onDay(5)"><li class="day-name" id="dayx5"><%=getDayName(now.addDays(1))%></li><li class="day-number" id="day5"><%=getDayNumber(now.addDays(1))%></li></button>
+            <button class="day" onclick="onDay(6)"><li class="day-name" id="dayx6"><%=getDayName(now.addDays(2))%></li><li class="day-number" id="day6"><%=getDayNumber(now.addDays(2))%></li></button>
+            <button class="day" onclick="onDay(7)"><li class="day-name" id="dayx7"><%=getDayName(now.addDays(3))%></li><li class="day-number" id="day7"><%=getDayNumber(now.addDays(3))%></li></button>
+        </div>
+    </div>
+
+    <div id="listbox">
+        <table class="sales" id="list-sales">
+            <caption id="sales-title">Sales on <%=getMonthName(now)%> <%=getDayNumber(now)%></caption>
+            <thead>
+                <tr id="span"><th colspan="3">&nbsp;</th><th colspan="2">Tickets</th><th colspan="2">Stakes</th><th>&nbsp;</tr>
+                <tr><th>ID</th><th>Date</th><th>Match</th><th>Team1</th><th>Team2</th><th>Team1</th><th>Team2</th><th>Total</th></tr>
+            </thead>
+            <tbody>
+                <% let total = 0; %>
+                <% if(list.length>0) { %>
+                    <% list.forEach(function(item){ total+=parseInt(item.total); %>
+                        <tr class="sales-row">
+                            <td><%=item.eventid%></td>
+                            <td><%=(new Date(item.day*1000)).toJSON().substr(0,10)%></td>
+                            <td><%=item.team1%> - <%=item.team2%></td>
+                            <td><%=item.count1%></td>
+                            <td><%=item.count2%></td>
+                            <td><%=item.option1%></td>
+                            <td><%=item.option2%></td>
+                            <td><%=item.total%></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr><td>&nbsp;</td><td class="center" colspan="6">No sales recorded</td><td>&nbsp;</td></tr>
+                <% } %>
+            </tbody>
+            <tfoot>
+                <tr><td colspan="8">Total sales of the day <span id="sales-total"><%=total%></span> TRX</td></tr>
+            </tfoot>
+        </table>
+    </div>
+</content>
+<footer>
+    <div class="rights">GU3SS &copy; 2022</div>
+</footer>
+<templates>
+    <template id="ui-row-sales">
+        <tr class="sales-row">
+            <td>{eventid}</td>
+            <td>{date}</td>
+            <td>{teams}</td>
+            <td>{count1}</td>
+            <td>{count2}</td>
+            <td>{option1}</td>
+            <td>{option2}</td>
+            <td>{total}</td>
+        </tr>
+    </template>
+</templates>
+<script>
+let config = <%-JSON.stringify(config, null, 4)%>;
+</script>
+<script src="/scripts/sales.js"></script>
+<script src="/scripts/main.js"></script>
+</body>
+</html>
