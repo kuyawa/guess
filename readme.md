@@ -5,7 +5,7 @@
 
 ![GU3SS](media/main.jpg)
 
-GU3SS runs on TRON blockchain so in order to play you need to install [TronLink Wallet](https://www.tronlink.org) extension on your browser or your mobile
+[GU3SS](https://gu3ss.com) runs on TRON blockchain so in order to play you need to install [TronLink Wallet](https://www.tronlink.org) extension on your browser or your mobile
 
 ![TronLink](media/tronlink.png)
 
