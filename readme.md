@@ -9,7 +9,7 @@
 
 ![TronLink](media/tronlink.png)
 
-Developed using NodeJS and PostgreSQL on the server, plain HTML, JS, CSS on the client, Solidity, TronWeb and TronLink for smart contract interaction, GU3SS is participating in the 2022 TRON Hackathon
+Developed using NodeJS and PostgreSQL on the server, plain HTML, JS, CSS on the client, Solidity, TronWeb and TronLink for smart contract interaction, GU3SS is participating in TRON Hackathon 2022
 
 # PLAY NOW on [GU3SS.com](https://gu3ss.com)
 
