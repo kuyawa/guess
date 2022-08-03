@@ -9,7 +9,7 @@ const express      = require('express');
 //const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const api          = require('./api.js');
-const bots         = require('./bots.js');
+//const bots         = require('./bots.js');
 const cron         = require('./cron.js');
 const db           = require('./database.js');
 
